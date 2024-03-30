@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:mindscape/pages/signup_page.dart';
 import 'package:mindscape/reusable_widgets/reusable_widgets.dart';
 import 'package:mindscape/utilities/colors_util.dart';
+import 'package:mindscape/pages/home_page.dart'; // Import the home page
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             colors: [
               hexStringToColor("ffe6e8"),
               hexStringToColor("acd8aa"),
-              hexStringToColor("f48498")
+              hexStringToColor("f48498"),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -51,7 +53,16 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                logInSignUpButton(context, true, () {}),
+                GestureDetector(
+                  onTap: () {
+                    // Navigate to the home page when the login button is tapped
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  },
+                  child: logInSignUpButton(context, true, () {}),
+                ),
                 signUpOption(context)
               ],
             ),
@@ -66,12 +77,16 @@ Row signUpOption(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      const Text("Don't have an account? Try to",
-          style: TextStyle(color: Colors.white70)),
+      const Text(
+        "Don't have an account? Try to",
+        style: TextStyle(color: Colors.white70),
+      ),
       GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SignUpPage()));
+            context,
+            MaterialPageRoute(builder: (context) => SignUpPage()),
+          );
         },
         child: const Text(
           " Sign Up",
