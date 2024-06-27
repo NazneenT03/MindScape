@@ -1,8 +1,15 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:mindscape/pages/login_page.dart';
+import 'package:mindscape/pages/journal.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    debugShowMaterialGrid: true,
+    home: LoginPage(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +40,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: const MyJournalPage(),
     );
   }
 }

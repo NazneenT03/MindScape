@@ -22,7 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
     try {
       final response = await http.post(
         Uri.parse(
-            'http://192.168.1.7:8000/register/'), // Replace with your Django backend URL
+            'http://192.168.1.2:8000/register/'), // Replace with your Django backend URL
         headers: {
           'Content-Type': 'application/json', // Specify the content-type
         },
