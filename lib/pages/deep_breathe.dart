@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'dart:async';
 
 void main() => runApp(const MyApp());
@@ -62,6 +63,32 @@ class _DeepBreatheState extends State<DeepBreathe>
         });
       }
     });
+
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.forward) {
+        _vibrate("breathe in");
+      } else if (status == AnimationStatus.reverse) {
+        _vibrate("breathe out");
+      }
+    });
+  }
+
+  void _vibrate(String phase) {
+    if (Vibrate.canVibrate == true) {
+      if (phase == "breathe in") {
+        Vibrate.vibrateWithPauses([
+          const Duration(milliseconds: 1000),
+          const Duration(milliseconds: 500),
+          const Duration(milliseconds: 1000),
+        ]);
+      } else if (phase == "breathe out") {
+        Vibrate.vibrateWithPauses([
+          const Duration(milliseconds: 500),
+          const Duration(milliseconds: 1000),
+          const Duration(milliseconds: 500),
+        ]);
+      }
+    }
   }
 
   @override
@@ -129,29 +156,8 @@ class _DeepBreatheState extends State<DeepBreathe>
     });
   }
 
-  void _pause() {
-    _animationController.stop();
-    _audioPlayer.pause();
-    _countdownTimer?.cancel();
-    setState(() {
-      _isPaused = true;
-    });
-  }
-
-  void _resume() {
-    if (_showCountdown) {
-      _startCountdown();
-    } else {
-      _animationController.forward();
-      _audioPlayer.play();
-    }
-    setState(() {
-      _isPaused = false;
-    });
-  }
-
   void _showExitDialog() {
-    _pause();
+    _pause(); // Pause the current state
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -174,7 +180,7 @@ class _DeepBreatheState extends State<DeepBreathe>
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _resume();
+                _resume(); // Resume the state when "Go Back" is pressed
               },
               child: const Text(
                 "Go Back",
@@ -199,8 +205,29 @@ class _DeepBreatheState extends State<DeepBreathe>
       },
     ).then((_) {
       if (_isPaused) {
-        _resume();
+        _resume(); // Ensure the state resumes if the dialog is dismissed
       }
+    });
+  }
+
+  void _pause() {
+    _animationController.stop();
+    _audioPlayer.pause();
+    _countdownTimer?.cancel();
+    setState(() {
+      _isPaused = true;
+    });
+  }
+
+  void _resume() {
+    if (_showCountdown) {
+      _startCountdown(); // Resume countdown if it was active
+    } else {
+      _animationController.repeat(reverse: true); // Resume animation
+      _audioPlayer.play(); // Resume audio playback
+    }
+    setState(() {
+      _isPaused = false;
     });
   }
 
