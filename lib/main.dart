@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:mindscape/pages/login_page.dart';
-import 'package:mindscape/pages/journal.dart';
 
 void main() {
   runApp(const MaterialApp(
