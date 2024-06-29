@@ -32,7 +32,7 @@ dependencies:
     sdk: flutter
   http: ^1.2.1
   shared_preferences: ^2.0.8
-  flutter_secure_storage: ^9.0.0
+  flutter_secure_storage: 8.1.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
@@ -52,6 +52,10 @@ dependencies:
   rxdart: ^0.27.2
   audio_video_progress_bar: 2.0.3
   flutter_vibrate: ^1.3.0
+  flutter_tinder_swipe: ^0.0.4
+  flutter_card_swiper: ^7.0.1
+  share_plus: ^6.0.0
+  screenshot: 2.5.0
 
 
 
@@ -102,6 +106,10 @@ flutter:
     - family: IndieFlower
       fonts:
           - asset: assets\images\IndieFlower-Regular.ttf
+
+    - family: SpaceGrotesk
+      fonts:
+          - asset: assets\images\SpaceGrotesk-VariableFont_wght.ttf
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

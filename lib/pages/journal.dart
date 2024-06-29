@@ -513,7 +513,7 @@ class _MyJournalPageState extends State<MyJournalPage> {
                     child: Opacity(
                       opacity: 0.5,
                       child: Image.asset(
-                        'assests/images/clouds.png',
+                        'assets/images/clouds.png',
                         fit: BoxFit.cover,
                       ),
                     ),
